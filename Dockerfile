@@ -13,11 +13,18 @@ RUN mvn clean package -DskipTests
 FROM amazoncorretto:17-alpine
 WORKDIR /app
 
+# Install netcat for connection checking
+RUN apk add --no-cache netcat-openbsd bash
+
 # Copy the built JAR from builder stage
 COPY --from=builder /build/target/core-1.0-SNAPSHOT.jar app.jar
+
+# Copy entrypoint script
+COPY entrypoint.sh .
+RUN chmod +x entrypoint.sh
 
 # Expose the port
 EXPOSE 8080
 
-# Command to run the app
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Use entrypoint script to wait for database
+ENTRYPOINT ["./entrypoint.sh"]

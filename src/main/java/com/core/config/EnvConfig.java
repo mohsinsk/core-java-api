@@ -26,7 +26,11 @@ public class EnvConfig {
         port = Integer.parseInt(getEnv("DB_PORT", "3306"));
         dbName = getDbName();
 
-        return String.format("jdbc:mysql://%s:%d/%s", host, port, dbName);
+        // Add connection timeout and retry parameters for better reliability
+        String url = String.format("jdbc:mysql://%s:%d/%s", host, port, dbName);
+        url += "?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&connectTimeout=30000&socketTimeout=30000";
+
+        return url;
     }
 
     public static String getDbUser() {
