@@ -1,5 +1,6 @@
 package com.core.filter;
 
+import com.core.config.EnvConfig;
 import com.sun.net.httpserver.Filter;
 import com.sun.net.httpserver.HttpExchange;
 import java.io.IOException;
@@ -17,9 +18,8 @@ public class AuthFilter extends Filter {
         if (exchange.getRequestHeaders().containsKey("Authorization")) {
             String token = exchange.getRequestHeaders().getFirst("Authorization");
 
-            // 2. Validate Token (Simple static check for now)
-            // In a real app, you would query the DB or validate a JWT here.
-            if ("Bearer my-secret-token-123".equals(token)) {
+            // 2. Validate Token against environment variable
+            if (EnvConfig.getAuthToken().equals(token)) {
                 chain.doFilter(exchange); // Pass to the next handler
                 return;
             }

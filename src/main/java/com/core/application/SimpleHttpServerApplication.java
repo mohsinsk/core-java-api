@@ -25,7 +25,9 @@ public class SimpleHttpServerApplication {
 
         userContext.getFilters().add(new AuthFilter());
 
-        // We will add Authentication here in the next step!
+        // Log mode and database connection info
+        logger.info("Application Mode: " + com.core.config.EnvConfig.getMode());
+        logger.info("Database URL: " + com.core.config.EnvConfig.getDbUrl());
 
         server.setExecutor(null);
         logger.info("Server started on port " + PORT); // Use logger instead of sysout
