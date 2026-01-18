@@ -26,11 +26,12 @@ nano .env
 Update with your values:
 ```env
 MODE=local
-DB_URL_DOCKER=jdbc:mysql://mysql:3306/core_java_api
-DB_URL_LOCAL=jdbc:mysql://127.0.0.1:3306/core_java_api
+DB_HOST_DOCKER=mysql
+DB_HOST_LOCAL=127.0.0.1
+DB_PORT=3306
+DB_NAME=core_java_api
 DB_USER=root
 DB_PASSWORD=your_secure_password
-DB_NAME=core_java_api
 AUTH_TOKEN=Bearer your_secure_token
 ```
 
